@@ -246,7 +246,6 @@ footer{display:grid;grid-template-columns:1fr 344px;border-top:1px solid var(--l
   <div class="hdrr">
     <div class="shift">SHIFT A · LIVE</div>
     <div id="hdrClock">09:41:00</div>
-    <button class="hbtn" id="pauseBtn" title="Pause (Space)">❚❚</button>
     <button class="hbtn" id="spdBtn" title="Sim speed">1×</button>
   </div>
 </header>
@@ -280,7 +279,7 @@ footer{display:grid;grid-template-columns:1fr 344px;border-top:1px solid var(--l
     <div class="corner c-tl"></div><div class="corner c-tr"></div><div class="corner c-bl"></div><div class="corner c-br"></div>
     <div class="hud hud-tl"><span class="lv">●</span>&nbsp;LIVE TELEMETRY · SECTOR W-07 · DIGITAL TWIN</div>
     <div class="hud hud-tr">CAM <b id="hudCam">ORBIT</b> &nbsp;·&nbsp; <b id="fps">60</b> FPS &nbsp;·&nbsp; EDGE-GW <b id="gwStat">ONLINE</b></div>
-    <div class="hud hud-br"><b>DRAG</b> orbit &nbsp;·&nbsp; <b>WHEEL</b> zoom &nbsp;·&nbsp; <b>R-DRAG</b> pan<br><b>CLICK</b> select unit &nbsp;·&nbsp; <b>DBL-CLICK</b> follow &nbsp;·&nbsp; <b>SPACE</b> pause</div>
+    <div class="hud hud-br"><b>DRAG</b> orbit &nbsp;·&nbsp; <b>WHEEL</b> zoom &nbsp;·&nbsp; <b>R-DRAG</b> pan<br><b>CLICK</b> select unit &nbsp;·&nbsp; <b>DBL-CLICK</b> follow</div>
     <div id="legend">
       <i class="lg-m">MOVING</i><i class="lg-p">PATH / DEST</i>
       <i class="lg-i">IDLE</i><i class="lg-x">POTENTIAL CONFLICT</i>
@@ -599,7 +598,7 @@ function pointAlong(b,t){
 }
 
 /* ================= UI STATE ================= */
-let selected=null,camMode='ORBIT',paused=false,speed=1,simT=0,ordersDone=0;
+let selected=null,camMode='ORBIT',speed=1,simT=0,ordersDone=0;
 const logEl=document.getElementById('log');
 function log(cat,msg){
   const d=document.createElement('div');d.className='ln';
@@ -1021,9 +1020,6 @@ document.querySelectorAll('[data-ov]').forEach(cb=>cb.onchange=()=>{
   if(k==='zones')ovZones=v;
 });
 document.querySelectorAll('[data-cam]').forEach(x=>x.onclick=()=>setCam(x.dataset.cam));
-const pauseBtn=document.getElementById('pauseBtn');
-function togglePause(){paused=!paused;pauseBtn.textContent=paused?'▶':'❚❚';log('SYS',paused?'simulation paused by operator':'simulation resumed');}
-pauseBtn.onclick=togglePause;
 const spdBtn=document.getElementById('spdBtn');const SPDS=[1,2,4,.5];let spdI=0;
 spdBtn.onclick=()=>{spdI=(spdI+1)%SPDS.length;speed=SPDS[spdI];spdBtn.textContent=(speed+'×').replace('0.5','½');log('SYS','sim rate set to '+speed+'×');};
 document.getElementById('btnDispatch').onclick=()=>{robots.filter(b=>b.state==='idle').forEach((b,i)=>setTimeout(()=>{if(b.state==='idle')assignOrder(b,false);},i*400));log('SYS','dispatch wave issued to idle units');};
@@ -1036,7 +1032,6 @@ document.getElementById('btnCharge').onclick=()=>{if(!selected)return;selected.p
 document.getElementById('priUp').onclick=()=>{if(selected&&selected.priority>1){selected.priority--;log('SYS',selected.id+' priority raised to P'+selected.priority);}};
 document.getElementById('priDn').onclick=()=>{if(selected&&selected.priority<4){selected.priority++;log('SYS',selected.id+' priority lowered to P'+selected.priority);}};
 addEventListener('keydown',e=>{
-  if(e.code==='Space'&&e.target===document.body){e.preventDefault();togglePause();}
   if(e.key==='f'||e.key==='F')setCam('FOLLOW');
 });
 
@@ -1142,7 +1137,7 @@ function frame(now){
   requestAnimationFrame(frame);
   const raw=Math.min(.05,(now-lastT)/1000);lastT=now;
   fpsN++;fpsT+=raw;if(fpsT>.5){$('fps').textContent=Math.round(fpsN/fpsT);fpsN=0;fpsT=0;}
-  const dt=paused?0:raw*speed;
+  const dt=raw*speed;
   if(dt>0){
     simT+=dt;
     robots.forEach(b=>updBot(b,dt));
