@@ -345,7 +345,8 @@ const GATE={c:39,r:25};
 const PICKS=[];
 for(let r=3;r<=23;r++)for(let c=4;c<=37;c++){
   if(STAT[CI(c,r)])continue;
-  if((r>0&&!STAT[CI(c,r-1)])||(r<ROWS-1&&!STAT[CI(c,r+1)])||(c>0&&!STAT[CI(c-1,r)])||(c<COLS-1&&!STAT[CI(c+1,r)]))continue;
+  const adjRack=(r>0&&STAT[CI(c,r-1)])||(r<ROWS-1&&STAT[CI(c,r+1)])||(c>0&&STAT[CI(c-1,r)])||(c<COLS-1&&STAT[CI(c+1,r)]);
+  if(!adjRack)continue;
   PICKS.push({c,r});
 }
 const freeCell=(c,r,extra)=>c>=0&&r>=0&&c<COLS&&r<ROWS&&!STAT[CI(c,r)]&&!DYN.has(CI(c,r))&&!(extra&&extra.has(CI(c,r)));
@@ -468,7 +469,8 @@ function textSprite(draw,w,h,sx,sy){
   const cv=document.createElement('canvas');cv.width=w;cv.height=h;
   const tex=new THREE.CanvasTexture(cv);tex.encoding=THREE.sRGBEncoding;
   const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthWrite:false}));
-  sp.scale.set(sx,sy,1); sp.userData.redraw=()=>{const g=cv.getContext('2d');g.clearRect(0,0,w,h);draw(g,w,h);tex.needsUpdate=true;};
+  sp.scale.set(sx,sy,1); sp.userData.cv=cv; sp.userData.tex=tex;
+  sp.userData.redraw=()=>{const g=cv.getContext('2d');g.clearRect(0,0,w,h);draw(g,w,h);tex.needsUpdate=true;};
   sp.userData.redraw(); return sp;
 }
 const CIRC=(()=>{const cv=document.createElement('canvas');cv.width=cv.height=32;const g=cv.getContext('2d');
@@ -553,14 +555,15 @@ function drawLabel(b){
   const key=b.status+'|'+b.id+'|'+b.intentShort;
   if(b._lk===key)return; b._lk=key;
   const col='#'+STCOL[b.status].toString(16).padStart(6,'0');
-  b.g.userData.label.userData.redraw=(g)=>{
-    g.fillStyle='rgba(8,14,19,.88)';g.fillRect(18,10,220,84);
-    g.strokeStyle=col;g.lineWidth=3;g.strokeRect(18,10,220,84);
-    g.fillStyle='#eef4f8';g.font='700 34px Chakra Petch, sans-serif';g.textAlign='center';g.fillText(b.id,128,48);
-    g.fillStyle=col;g.font='500 19px IBM Plex Mono, monospace';g.fillText(b.intentShort||b.status.toUpperCase(),128,78);
-    b.g.userData.label.material.map.needsUpdate=true;
-  };
-  b.g.userData.label.userData.redraw();
+  const sp=b.g.userData.label;
+  if(!sp||!sp.userData.cv)return;
+  const cv=sp.userData.cv, g=cv.getContext('2d');
+  g.clearRect(0,0,cv.width,cv.height);
+  g.fillStyle='rgba(8,14,19,.88)';g.fillRect(18,10,220,84);
+  g.strokeStyle=col;g.lineWidth=3;g.strokeRect(18,10,220,84);
+  g.fillStyle='#eef4f8';g.font='700 34px Chakra Petch, sans-serif';g.textAlign='center';g.fillText(b.id,128,48);
+  g.fillStyle=col;g.font='500 19px IBM Plex Mono, monospace';g.fillText(b.intentShort||b.status.toUpperCase(),128,78);
+  sp.userData.tex.needsUpdate=true;
 }
 const SPAWN=[[20,25],[23,25],[26,25],[29,25],[24,23],[28,23]];
 for(let i=0;i<6;i++){
@@ -631,11 +634,13 @@ select(robots[0]);
 /* ================= ORDERS / TASKS ================= */
 let ordSeq=1040;
 function assignOrder(b,quiet){
+  if(!PICKS.length||!STNS.length)return;
   const pk=pick(PICKS),st=pick(STNS);
+  if(!pk||!st)return;
   b.order={id:'ORD-'+(ordSeq++),pick:pk,st,pickTag:sector(pk.c,pk.r)};
   b.state='toPick';b.destCell=pk;b.destName='PICK '+pk.c+'·'+pk.r+' ('+sector(pk.c,pk.r)+')';
   const p=astar(...cellXY(b),pk.c,pk.r,b.tempBlocks);
-  if(p)setPath(b,p);else{b.state='idle';b.order=null;return;}
+  if(p)setPath(b,p);else{b.state='idle';b.order=null;b.orderTimer=rnd(2,4);return;}
   b.dm.position.set(W(pk.c,pk.r).x,0,W(pk.c,pk.r).z);b.dm.visible=true;
   if(!quiet)log('TSK',`${b.id} assigned ${b.order.id} · PICK ${pk.c}·${pk.r} → STN ${st.i+1}`);
 }
@@ -1129,10 +1134,14 @@ function updHover(){
 /* ================= MAIN LOOP ================= */
 let lastT=performance.now(),fpsN=0,fpsT=0,obstT=rnd(14,22),autoDead=rnd(40,60);
 function resize(){
-  const w=vp.clientWidth,h=vp.clientHeight;
-  renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
+  const w=vp.clientWidth||window.innerWidth-626,h=vp.clientHeight||window.innerHeight-214;
+  if(w>0&&h>0){
+    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
+  }
 }
-new ResizeObserver(resize).observe(vp);resize();
+new ResizeObserver(resize).observe(vp);
+window.addEventListener('resize',resize);
+resize();
 function frame(now){
   requestAnimationFrame(frame);
   const raw=Math.min(.05,(now-lastT)/1000);lastT=now;
