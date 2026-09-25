@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unbox Robotics - Redefining New Age Warehousing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-container {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 72px;
+    }
+    .nav-logo { font-size: 1.35rem; font-weight: 800; color: #1a1a2e; }
+    .nav-logo span { color: #6c3ce0; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a {
+      font-size: 0.9rem; font-weight: 500; color: #444;
+      transition: color 0.2s; cursor: pointer;
+    }
+    .nav-links > li > a:hover { color: #6c3ce0; }
+    .dropdown {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      padding: 1rem; min-width: 200px; margin-top: 12px;
+    }
+    .nav-links > li:hover .dropdown { display: block; }
+    .dropdown a {
+      display: block; padding: 0.5rem 0.75rem;
+      font-size: 0.85rem; color: #555; border-radius: 8px;
+    }
+    .dropdown a:hover { background: #f5f0ff; color: #6c3ce0; }
+    .nav-cta {
+      background: #6c3ce0; color: #fff !important;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #5a2dc0; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none;
+    }
+    .hamburger span {
+      width: 24px; height: 2.5px; background: #333;
+      border-radius: 2px; transition: 0.3s;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, #0f0c29, #1a1145, #24243e);
+      position: relative; overflow: hidden; padding-top: 72px;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 70% 50%, rgba(108,60,224,0.25), transparent 60%);
+    }
+    .hero-particles {
+      position: absolute; inset: 0; overflow: hidden;
+    }
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: rgba(108,60,224,0.15);
+      animation: float 8s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+      50% { transform: translateY(-40px) scale(1.1); opacity: 0.6; }
+    }
+    .hero-container {
+      max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-content h1 {
+      font-size: 3.2rem; font-weight: 800; color: #fff;
+      line-height: 1.15; margin-bottom: 1.5rem;
+    }
+    .hero-content h1 span { color: #a78bfa; }
+    .hero-content p {
+      font-size: 1.1rem; color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem; max-width: 520px;
+    }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-bottom: 2.5rem;
+    }
+    .stat-item h3 {
+      font-size: 2.2rem; font-weight: 800; color: #a78bfa;
+    }
+    .stat-item p {
+      font-size: 0.8rem; color: rgba(255,255,255,0.65);
+      margin-bottom: 0; max-width: none;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: #6c3ce0; color: #fff; padding: 0.9rem 2rem;
+      border-radius: 10px; font-weight: 600; font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(108,60,224,0.4);
+    }
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-illustration {
+      width: 420px; height: 420px;
+      background: linear-gradient(135deg, rgba(108,60,224,0.2), rgba(167,139,250,0.1));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      animation: pulse 4s infinite ease-in-out;
+    }
+    .hero-illustration::before {
+      content: '🤖'; font-size: 8rem;
+    }
+    .hero-illustration::after {
+      content: ''; position: absolute; inset: -20px;
+      border: 2px dashed rgba(167,139,250,0.3);
+      border-radius: 50%; animation: spin 20s linear infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .swarm-badge {
+      position: absolute; bottom: 40px; left: -30px;
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 0.7rem 1.2rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; color: rgba(255,255,255,0.8);
+    }
+    .swarm-dot {
+      width: 8px; height: 8px; background: #a78bfa;
+      border-radius: 50%; animation: blink 2s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ===== TRUSTED BY ===== */
+    .trusted {
+      padding: 5rem 2rem;
+      background: #fafafa;
+    }
+    .trusted h2 {
+      text-align: center; font-size: 1.1rem; font-weight: 600;
+      color: #888; margin-bottom: 0.5rem;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .trusted p {
+      text-align: center; font-size: 0.95rem;
+      color: #666; margin-bottom: 3rem; max-width: 700px;
+      margin-left: auto; margin-right: auto;
+    }
+    .logo-marquee {
+      overflow: hidden; position: relative;
+    }
+    .logo-marquee::before,
+    .logo-marquee::after {
+      content: ''; position: absolute; top: 0; width: 120px; height: 100%;
+      z-index: 2;
+    }
+    .logo-marquee::before {
+      left: 0;
+      background: linear-gradient(90deg, #fafafa, transparent);
+    }
+    .logo-marquee::after {
+      right: 0;
+      background: linear-gradient(-90deg, #fafafa, transparent);
+    }
+    .logo-track {
+      display: flex; gap: 4rem; align-items: center;
+      animation: scroll 25s linear infinite;
+      width: max-content;
+    }
+    .logo-track .logo-item {
+      font-size: 1.4rem; font-weight: 700; color: #bbb;
+      white-space: nowrap; padding: 0 1rem;
+      letter-spacing: 1px;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== FLAGSHIP PRODUCT ===== */
+    .flagship {
+      padding: 7rem 2rem;
+      background: #fff;
+    }
+    .flagship-container {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    .flagship-visual {
+      position: relative;
+    }
+    .sort-system {
+      background: linear-gradient(135deg, #f3f0ff, #ede8ff);
+      border-radius: 24px; padding: 3rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .robot-row {
+      display: flex; gap: 0.75rem; align-items: center;
+    }
+    .robot {
+      width: 48px; height: 48px;
+      background: #6c3ce0; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; animation: robotMove 3s ease-in-out infinite;
+    }
+    .robot:nth-child(2) { animation-delay: 0.5s; }
+    .robot:nth-child(3) { animation-delay: 1s; }
+    .robot:nth-child(4) { animation-delay: 1.5s; }
+    @keyframes robotMove {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(8px); }
+    }
+    .shelf {
+      flex: 1; height: 8px; background: #d4c8f0;
+      border-radius: 4px;
+    }
+    .sort-layer {
+      display: flex; gap: 0.5rem; padding-left: 1rem;
+    }
+    .dest-slot {
+      width: 50px; height: 36px; border: 2px solid #d4c8f0;
+      border-radius: 8px; font-size: 0.6rem;
+      display: flex; align-items: center; justify-content: center;
+      color: #888; font-weight: 600;
+    }
+    .flagship-content h2 {
+      font-size: 2.5rem; font-weight: 800;
+      margin-bottom: 1.5rem; line-height: 1.2;
+    }
+    .flagship-content h2 span { color: #6c3ce0; }
+    .flagship-content > p {
+      color: #666; font-size: 1rem;
+      margin-bottom: 2rem; line-height: 1.7;
+    }
+    .feature-cards {
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .feature-card {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem; background: #fafafa;
+      border-radius: 14px; border: 1px solid #f0f0f0;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: #6c3ce0; }
+    .feature-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: linear-gradient(135deg, #6c3ce0, #a78bfa);
+      border-radius: 12px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .feature-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .feature-card p { font-size: 0.85rem; color: #777; margin: 0; }
+
+    /* ===== SWARM INTELLIGENCE ===== */
+    .swarm-section {
+      padding: 7rem 2rem;
+      background: linear-gradient(135deg, #0f0c29, #1a1145);
+      color: #fff; text-align: center;
+    }
+    .swarm-section h2 {
+      font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;
+    }
+    .swarm-section > p {
+      color: rgba(255,255,255,0.7); max-width: 600px;
+      margin: 0 auto 3rem; font-size: 1.05rem;
+    }
+    .swarm-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    }
+    .swarm-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 2.5rem 2rem;
+      text-align: left; transition: transform 0.2s, border-color 0.2s;
+    }
+    .swarm-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(108,60,224,0.5);
+    }
+    .swarm-card-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #6c3ce0, #a78bfa);
+      border-radius: 14px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .swarm-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .swarm-card p { font-size: 0.9rem; color: rgba(255,255,255,0.65); }
+
+    /* ===== USE CASES ===== */
+    .usecases {
+      padding: 7rem 2rem; background: #fafafa;
+    }
+    .section-header {
+      text-align: center; margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;
+    }
+    .section-header h2 span { color: #6c3ce0; }
+    .section-header p {
+      color: #777; max-width: 600px; margin: 0 auto;
+      font-size: 1.05rem;
+    }
+    .usecase-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;
+    }
+    .usecase-card {
+      background: #fff; border-radius: 16px;
+      padding: 2rem; text-align: center;
+      border: 1px solid #f0f0f0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .usecase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+    .usecase-emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+    .usecase-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .usecase-card p { font-size: 0.82rem; color: #888; }
+
+    /* ===== RESULTS ===== */
+    .results {
+      padding: 7rem 2rem;
+      background: #fff;
+    }
+    .results-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    }
+    .result-card {
+      text-align: center; padding: 3rem 2rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f8f6ff, #f0ecff);
+      border: 1px solid #e8e0ff;
+    }
+    .result-number {
+      font-size: 3rem; font-weight: 800;
+      color: #6c3ce0; margin-bottom: 0.5rem;
+    }
+    .result-label {
+      font-size: 1rem; font-weight: 600; color: #444;
+      margin-bottom: 0.5rem;
+    }
+    .result-desc {
+      font-size: 0.85rem; color: #888;
+    }
+
+    /* ===== FAQ ===== */
+    .faq {
+      padding: 7rem 2rem; background: #fafafa;
+    }
+    .faq-container {
+      max-width: 800px; margin: 0 auto;
+    }
+    .faq-item {
+      background: #fff; border-radius: 14px;
+      margin-bottom: 1rem; overflow: hidden;
+      border: 1px solid #f0f0f0;
+      transition: border-color 0.2s;
+    }
+    .faq-item.active { border-color: #6c3ce0; }
+    .faq-question {
+      width: 100%; padding: 1.25rem 1.5rem;
+      display: flex; justify-content: space-between;
+      align-items: center; background: none;
+      border: none; cursor: pointer;
+      font-family: inherit; font-size: 1rem;
+      font-weight: 600; color: #333; text-align: left;
+    }
+    .faq-question:hover { color: #6c3ce0; }
+    .faq-arrow {
+      font-size: 1.2rem; transition: transform 0.3s;
+      color: #6c3ce0;
+    }
+    .faq-item.active .faq-arrow { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.25rem;
+      font-size: 0.9rem; color: #666; line-height: 1.7;
+    }
+    .faq-answer-inner ul {
+      list-style: disc; padding-left: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    .faq-answer-inner li { margin-bottom: 0.3rem; }
+    .faq-answer-inner strong { color: #333; }
+    .faq-contact {
+      text-align: center; margin-top: 3rem;
+      font-size: 0.9rem; color: #888;
+    }
+    .faq-contact a { color: #6c3ce0; font-weight: 600; }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      padding: 7rem 2rem;
+      background: linear-gradient(135deg, #6c3ce0, #4a1fb8);
+      text-align: center; color: #fff;
+    }
+    .cta-section h2 {
+      font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;
+    }
+    .cta-section p {
+      font-size: 1.1rem; color: rgba(255,255,255,0.8);
+      margin-bottom: 2.5rem; max-width: 600px;
+      margin-left: auto; margin-right: auto;
+    }
+    .cta-btn {
+      display: inline-block; background: #fff; color: #6c3ce0;
+      padding: 1rem 2.5rem; border-radius: 12px;
+      font-weight: 700; font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #0f0c29; color: rgba(255,255,255,0.7);
+      padding: 5rem 2rem 2rem;
+    }
+    .footer-container {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 3rem;
+    }
+    .footer-brand h3 {
+      font-size: 1.35rem; font-weight: 800; color: #fff;
+      margin-bottom: 1rem;
+    }
+    .footer-brand h3 span { color: #a78bfa; }
+    .footer-brand p {
+      font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.5rem;
+    }
+    .social-links { display: flex; gap: 0.75rem; }
+    .social-link {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 0.85rem; transition: background 0.2s;
+    }
+    .social-link:hover { background: #6c3ce0; }
+    .footer-col h4 {
+      font-size: 0.85rem; font-weight: 700;
+      color: #fff; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 1.25rem;
+    }
+    .footer-col ul li { margin-bottom: 0.75rem; }
+    .footer-col ul li a {
+      font-size: 0.88rem; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: #a78bfa; }
+    .footer-locations { margin-top: 1rem; }
+    .footer-location {
+      margin-bottom: 1rem;
+    }
+    .footer-location h5 {
+      font-size: 0.8rem; font-weight: 700;
+      color: #a78bfa; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 0.3rem;
+    }
+    .footer-location p {
+      font-size: 0.8rem; line-height: 1.5; margin: 0;
+    }
+    .footer-bottom {
+      max-width: 1280px; margin: 3rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.8rem; margin: 0; }
+    .footer-bottom-links {
+      display: flex; gap: 1.5rem;
+    }
+    .footer-bottom-links a {
+      font-size: 0.8rem; transition: color 0.2s;
+    }
+    .footer-bottom-links a:hover { color: #a78bfa; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-container { grid-template-columns: 1fr; text-align: center; }
+      .hero-content p { margin-left: auto; margin-right: auto; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { display: none; }
+      .flagship-container { grid-template-columns: 1fr; }
+      .flagship-visual { order: -1; }
+      .swarm-grid { grid-template-columns: 1fr; max-width: 500px; }
+      .results-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.active {
+        display: flex; flex-direction: column;
+        position: absolute; top: 72px; left: 0; width: 100%;
+        background: #fff; padding: 1.5rem 2rem;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      }
+      .hamburger { display: flex; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .flagship-content h2 { font-size: 1.8rem; }
+      .swarm-section h2 { font-size: 1.8rem; }
+      .section-header h2 { font-size: 1.8rem; }
+      .cta-section h2 { font-size: 1.8rem; }
+      .footer-container { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-content h1 { font-size: 1.8rem; }
+      .hero-stats { flex-direction: column; gap: 1rem; }
+      .usecase-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">Unbox<span>Robotics</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li>
+          <a href="/solutions-overview">Solutions</a>
+          <div class="dropdown">
+            <a href="/solutions-overview">Solutions Overview</a>
+            <a href="/unboxsort">UnboxSort</a>
+          </div>
+        </li>
+        <li><a href="/technology">Technology</a></li>
+        <li><a href="/industry">Industry</a></li>
+        <li>
+          <a href="#">Resources</a>
+          <div class="dropdown">
+            <a href="/blogs">Blogs</a>
+            <a href="/case-study">Case Study</a>
+            <a href="/newsroom">Newsroom</a>
+          </div>
+        </li>
+        <li>
+          <a href="#">Company</a>
+          <div class="dropdown">
+            <a href="/about-us">About Us</a>
+            <a href="/events">Events</a>
+            <a href="/careers">Careers</a>
+          </div>
+        </li>
+        <li><a href="/get-in-touch" class="nav-cta">Get In Touch</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-particles">
+      <div class="particle" style="width:200px;height:200px;top:10%;left:60%;animation-delay:0s;"></div>
+      <div class="particle" style="width:140px;height:140px;top:60%;left:20%;animation-delay:2s;"></div>
+      <div class="particle" style="width:100px;height:100px;top:30%;left:80%;animation-delay:4s;"></div>
+      <div class="particle" style="width:80px;height:80px;top:70%;left:70%;animation-delay:1s;"></div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Redefining <span>New Age</span> Warehousing</h1>
+        <p>Future-ready warehouse automation engineered for space, speed and savings.</p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h3>3x</h3>
+            <p>Faster installation</p>
+          </div>
+          <div class="stat-item">
+            <h3>2x</h3>
+            <p>Faster ROI</p>
+          </div>
+          <div class="stat-item">
+            <h3>2x</h3>
+            <p>Increase in space density</p>
+          </div>
+        </div>
+        <a href="/get-in-touch" class="hero-cta">
+          Book a Demo
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-illustration">
+          <div class="swarm-badge">
+            <div class="swarm-dot"></div>
+            Swarm Intelligence Enabled
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUSTED BY ===== -->
+  <section class="trusted">
+    <h2>Trusted by global leaders</h2>
+    <p>Partnering with world-class logistics and e-commerce leaders who trust our robotics and engineering excellence.</p>
+    <div class="logo-marquee">
+      <div class="logo-track">
+        <div class="logo-item">DHL</div>
+        <div class="logo-item">Myntra</div>
+        <div class="logo-item">Inditex</div>
+        <div class="logo-item">Trendyol</div>
+        <div class="logo-item">Mondial Relay</div>
+        <div class="logo-item">Bonzai</div>
+        <div class="logo-item">Miroglio</div>
+        <!-- duplicate for seamless loop -->
+        <div class="logo-item">DHL</div>
+        <div class="logo-item">Myntra</div>
+        <div class="logo-item">Inditex</div>
+        <div class="logo-item">Trendyol</div>
+        <div class="logo-item">Mondial Relay</div>
+        <div class="logo-item">Bonzai</div>
+        <div class="logo-item">Miroglio</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FLAGSHIP PRODUCT ===== -->
+  <section class="flagship">
+    <div class="flagship-container">
+      <div class="flagship-visual">
+        <div class="sort-system">
+          <div class="robot-row">
+            <div class="robot">🤖</div>
+            <div class="shelf"></div>
+            <div class="robot">🤖</div>
+          </div>
+          <div class="robot-row">
+            <div class="robot">🤖</div>
+            <div class="shelf"></div>
+            <div class="robot">🤖</div>
+          </div>
+          <div class="robot-row">
+            <div class="robot">🤖</div>
+            <div class="shelf"></div>
+            <div class="robot">🤖</div>
+          </div>
+          <div class="sort-layer">
+            <div class="dest-slot">A1</div>
+            <div class="dest-slot">A2</div>
+            <div class="dest-slot">A3</div>
+            <div class="dest-slot">A4</div>
+            <div class="dest-slot">A5</div>
+          </div>
+          <div class="sort-layer">
+            <div class="dest-slot">B1</div>
+            <div class="dest-slot">B2</div>
+            <div class="dest-slot">B3</div>
+            <div class="dest-slot">B4</div>
+            <div class="dest-slot">B5</div>
+          </div>
+        </div>
+      </div>
+      <div class="flagship-content">
+        <h2>Meet our flagship product — <span>UnboxSort</span></h2>
+        <p>The industry's most flexible and fastest time-to-value robotics sortation solution, modernizing e-commerce and urban logistics operations.</p>
+        <div class="feature-cards">
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <div>
+              <h4>Minimal to no software integration</h4>
+              <p>Deploy fast with minimal IT effort — the solution works with existing systems without heavy integration.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <div>
+              <h4>Operationally Resilient by Design</h4>
+              <p>Designed without single points of failure, ensuring consistent throughput and high uptime during peaks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SWARM INTELLIGENCE ===== -->
+  <section class="swarm-section">
+    <h2>Driven by Swarm Intelligence</h2>
+    <p>A fleet of high-speed robots working in 3D space using Swarm Intelligence to sort parcels accurately and safely.</p>
+    <div class="swarm-grid">
+      <div class="swarm-card">
+        <div class="swarm-card-icon">🐝</div>
+        <h3>Decentralized Coordination</h3>
+        <p>Robots communicate and adapt in real time, enabling dynamic task allocation without central control bottlenecks.</p>
+      </div>
+      <div class="swarm-card">
+        <div class="swarm-card-icon">📦</div>
+        <h3>Vertical Space Utilization</h3>
+        <p>Multi-level 3D operation reduces the warehouse footprint by up to 50–70% compared to traditional systems.</p>
+      </div>
+      <div class="swarm-card">
+        <div class="swarm-card-icon">🔄</div>
+        <h3>Scalable Fleet Management</h3>
+        <p>Add or remove robots on demand. Capacity scales with your business needs without permanent infrastructure changes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== USE CASES ===== -->
+  <section class="usecases">
+    <div class="section-header">
+      <h2>Built for <span>Modern Logistics</span> Networks</h2>
+      <p>Deployed across fulfillment centers, sort centers, delivery hubs and return facilities.</p>
+    </div>
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <div class="usecase-emoji">🛒</div>
+        <h4>Order Consolidation</h4>
+        <p>Consolidate multi-item orders for efficient packing and dispatch.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-emoji">📬</div>
+        <h4>Outbound Sortation</h4>
+        <p>Sort outbound parcels by destination, carrier, or route.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-emoji">🏪</div>
+        <h4>Click & Collect</h4>
+        <p>Support BOPIS workflows with rapid order-level sorting.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-emoji">🚚</div>
+        <h4>Mid-Mile Sortation</h4>
+        <p>Hub-level sortation for efficient transfer between facilities.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="usecase-emoji">↩️</div>
+        <h4>Returns Processing</h4>
+        <p>Streamline returns sortation back into inventory or disposition.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESULTS ===== -->
+  <section class="results">
+    <div class="section-header">
+      <h2>Proven <span>Results</span> Repeatedly</h2>
+      <p>Measurable gains in throughput, accuracy, and operational cost reduction achieved on actual projects.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-number">50%</div>
+        <div class="result-label">Space Savings</div>
+        <div class="result-desc">Vertical design reduces footprint dramatically versus conveyor-based systems.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-number">99.9%</div>
+        <div class="result-label">Sort Accuracy</div>
+        <div class="result-desc">Intelligent software ensures parcels reach the correct destination every time.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-number">3 Weeks</div>
+        <div class="result-label">Deployment Time</div>
+        <div class="result-desc">Modular design enables installation in weeks instead of months.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq">
+    <div class="section-header">
+      <h2>Quick <span>Answers</span></h2>
+      <p>Frequently asked questions about Unbox Robotics and UnboxSort.</p>
+    </div>
+    <div class="faq-container">
+
+      <div class="faq-item active">
+        <button class="faq-question">
+          What is Unbox Robotics?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" style="max-height:300px;">
+          <div class="faq-answer-inner">
+            Unbox Robotics designs and deploys intelligent robotic systems for parcel sortation and order consolidation. Its flagship solution, UnboxSort, is a vertical robotic sortation system built to deliver high throughput, space efficiency, and operational flexibility for modern logistics and fulfillment operations.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What is UnboxSort?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            UnboxSort is a modular, vertical robotic parcel sortation system that uses autonomous robots and intelligent software to sort parcels into destinations such as orders, routes, stores, or carriers. It is designed to operate in compact spaces while maintaining high accuracy and throughput.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How does UnboxSort differ from traditional sorters?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Unlike traditional conveyor-based systems that rely heavily on floor space and fixed layouts, UnboxSort:
+            <ul>
+              <li>Uses <strong>vertical space</strong>, reducing footprint by ~50–70%</li>
+              <li>Is <strong>modular and scalable</strong>, not rigid or capacity-locked</li>
+              <li>Deploys in <strong>weeks instead of months</strong></li>
+              <li>Adapts dynamically to changing destination counts and volumes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What types of warehouses can use UnboxSort?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            UnboxSort can be deployed across e-commerce fulfillment centers, sort centers, distribution centers, urban delivery hubs, and B2B store replenishment facilities. It works in both greenfield and brownfield warehouses without major infrastructure changes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What kind of parcels can UnboxSort handle?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            UnboxSort is designed for conveyable parcels such as cartons and small to medium-sized boxes, supporting varied parcel sizes and weights commonly seen in e-commerce, retail, and logistics operations.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What use cases does UnboxSort support?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            UnboxSort supports order consolidation, outbound parcel sortation, Click & Collect (BOPIS) operations, mid-mile sortation at hub facilities, returns sortation, B2B store order fulfillment, and last-mile route-level sortation.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How scalable is UnboxSort?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            UnboxSort scales incrementally — operators can add or remove robots based on throughput needs, increase destinations without redesigning layouts, and adapt to seasonal peaks without permanent infrastructure expansion.
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="faq-contact">
+      Can't find what you're looking for? <a href="mailto:info@unboxrobotics.com">Contact us</a>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <h2>Ready to Revolutionize Your Warehouse?</h2>
+    <p>Let's discuss how Unbox Robotics can tailor a solution to meet your unique challenges.</p>
+    <a href="/get-in-touch" class="cta-btn">Get In Touch</a>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Unbox<span>Robotics</span></h3>
+        <p>Redefining new age warehousing with intelligent robotic sortation systems powered by Swarm Intelligence.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/lifeatunbox/" class="social-link" target="_blank" rel="noopener">IG</a>
+          <a href="https://www.linkedin.com/company/unboxrobotics/" class="social-link" target="_blank" rel="noopener">IN</a>
+          <a href="https://x.com/RoboticsUnbox" class="social-link" target="_blank" rel="noopener">X</a>
+          <a href="https://www.facebook.com/unboxrobotics/" class="social-link" target="_blank" rel="noopener">FB</a>
+          <a href="https://www.youtube.com/@unboxrobotics" class="social-link" target="_blank" rel="noopener">YT</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="/solutions-overview">Solutions Overview</a></li>
+          <li><a href="/unboxsort">UnboxSort</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="/technology">Technology</a></li>
+          <li><a href="/industry">Industry</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/blogs">Blogs</a></li>
+          <li><a href="/case-study">Case Studies</a></li>
+          <li><a href="/newsroom">Newsroom</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Locations</h4>
+        <div class="footer-locations">
+          <div class="footer-location">
+            <h5>Head Office</h5>
+            <p>Pimpri-Chinchwad, Maharashtra, India</p>
+          </div>
+          <div class="footer-location">
+            <h5>Factory</h5>
+            <p>Shivane, Pune, Maharashtra, India</p>
+          </div>
+          <div class="footer-location">
+            <h5>USA</h5>
+            <p>Camden, Kent, Delaware</p>
+          </div>
+          <div class="footer-location">
+            <h5>Europe</h5>
+            <p>Eindhoven, Netherlands</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Unbox Robotics. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="/gdpr-compliance">GDPR Compliance</a>
+        <a href="/privacy-policy">Cookie &amp; Privacy Policy</a>
+        <a href="/data-processing-agreement">Data Processing Agreement</a>
+        <a href="/terms-of-services">Terms of Services</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const isActive = item.classList.contains('active');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(fi => {
+          fi.classList.remove('active');
+          fi.querySelector('.faq-answer').style.maxHeight = '0';
+        });
+
+        // Open clicked if it wasn't active
+        if (!isActive) {
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Navbar shadow on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.navbar');
+      if (window.scrollY > 10) {
+        nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card, .swarm-card, .usecase-card, .result-card, .faq-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
