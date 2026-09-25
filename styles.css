@@ -32,3 +32,14 @@
 #rover-stage canvas:focus,#rover-stage canvas:focus-visible{outline:0!important;box-shadow:none!important}
 .rover-controls{pointer-events:none}
 .rover-controls>div,.rover-controls button{pointer-events:auto}
+
+/* Smartphone layout fix: give the 01 — THE PROBLEM statement a full-width
+   reading flow instead of squeezing its heading and copy into two columns. */
+@media(max-width:700px){
+  .statement-content{
+    grid-template-columns:1fr;
+    gap:28px;
+    margin-left:0;
+  }
+  .statement-content>div{align-self:start}
+}
