@@ -66,7 +66,6 @@ class DecentralizedController(Node):
             dy = y - state[1]
             distance = hypot(dx, dy)
             if 0.001 < distance < self.safe_distance:
-                # One graph message per nearby peer; closer peers contribute more.
                 weight = (self.safe_distance - distance) / (self.safe_distance * distance)
                 separation_x += weight * dx
                 separation_y += weight * dy

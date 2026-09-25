@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ===== RESET & BASE ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -21,7 +20,6 @@
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
 
-    /* ===== NAVBAR ===== */
     .navbar {
       position: fixed; top: 0; left: 0; width: 100%;
       background: rgba(255,255,255,0.95);
@@ -71,7 +69,6 @@
       border-radius: 2px; transition: 0.3s;
     }
 
-    /* ===== HERO ===== */
     .hero {
       min-height: 100vh; display: flex; align-items: center;
       background: linear-gradient(135deg, #0f0c29, #1a1145, #24243e);
@@ -168,7 +165,6 @@
       50% { opacity: 0.3; }
     }
 
-    /* ===== TRUSTED BY ===== */
     .trusted {
       padding: 5rem 2rem;
       background: #fafafa;
@@ -214,7 +210,6 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* ===== FLAGSHIP PRODUCT ===== */
     .flagship {
       padding: 7rem 2rem;
       background: #fff;
@@ -290,7 +285,6 @@
     .feature-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
     .feature-card p { font-size: 0.85rem; color: #777; margin: 0; }
 
-    /* ===== SWARM INTELLIGENCE ===== */
     .swarm-section {
       padding: 7rem 2rem;
       background: linear-gradient(135deg, #0f0c29, #1a1145);
@@ -327,7 +321,6 @@
     .swarm-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
     .swarm-card p { font-size: 0.9rem; color: rgba(255,255,255,0.65); }
 
-    /* ===== USE CASES ===== */
     .usecases {
       padding: 7rem 2rem; background: #fafafa;
     }
@@ -360,7 +353,6 @@
     .usecase-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
     .usecase-card p { font-size: 0.82rem; color: #888; }
 
-    /* ===== RESULTS ===== */
     .results {
       padding: 7rem 2rem;
       background: #fff;
@@ -387,7 +379,6 @@
       font-size: 0.85rem; color: #888;
     }
 
-    /* ===== FAQ ===== */
     .faq {
       padding: 7rem 2rem; background: #fafafa;
     }
@@ -435,7 +426,6 @@
     }
     .faq-contact a { color: #6c3ce0; font-weight: 600; }
 
-    /* ===== CTA SECTION ===== */
     .cta-section {
       padding: 7rem 2rem;
       background: linear-gradient(135deg, #6c3ce0, #4a1fb8);
@@ -460,7 +450,6 @@
       box-shadow: 0 8px 30px rgba(0,0,0,0.2);
     }
 
-    /* ===== FOOTER ===== */
     .footer {
       background: #0f0c29; color: rgba(255,255,255,0.7);
       padding: 5rem 2rem 2rem;
@@ -525,7 +514,6 @@
     }
     .footer-bottom-links a:hover { color: #a78bfa; }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .hero-container { grid-template-columns: 1fr; text-align: center; }
       .hero-content p { margin-left: auto; margin-right: auto; }
@@ -562,7 +550,6 @@
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">Unbox<span>Robotics</span></a>
@@ -601,7 +588,6 @@
     </div>
   </nav>
 
-  <!-- ===== HERO ===== -->
   <section class="hero">
     <div class="hero-particles">
       <div class="particle" style="width:200px;height:200px;top:10%;left:60%;animation-delay:0s;"></div>
@@ -643,7 +629,6 @@
     </div>
   </section>
 
-  <!-- ===== TRUSTED BY ===== -->
   <section class="trusted">
     <h2>Trusted by global leaders</h2>
     <p>Partnering with world-class logistics and e-commerce leaders who trust our robotics and engineering excellence.</p>
@@ -656,7 +641,6 @@
         <div class="logo-item">Mondial Relay</div>
         <div class="logo-item">Bonzai</div>
         <div class="logo-item">Miroglio</div>
-        <!-- duplicate for seamless loop -->
         <div class="logo-item">DHL</div>
         <div class="logo-item">Myntra</div>
         <div class="logo-item">Inditex</div>
@@ -668,7 +652,6 @@
     </div>
   </section>
 
-  <!-- ===== FLAGSHIP PRODUCT ===== -->
   <section class="flagship">
     <div class="flagship-container">
       <div class="flagship-visual">
@@ -727,7 +710,6 @@
     </div>
   </section>
 
-  <!-- ===== SWARM INTELLIGENCE ===== -->
   <section class="swarm-section">
     <h2>Driven by Swarm Intelligence</h2>
     <p>A fleet of high-speed robots working in 3D space using Swarm Intelligence to sort parcels accurately and safely.</p>
@@ -750,7 +732,6 @@
     </div>
   </section>
 
-  <!-- ===== USE CASES ===== -->
   <section class="usecases">
     <div class="section-header">
       <h2>Built for <span>Modern Logistics</span> Networks</h2>
@@ -785,7 +766,6 @@
     </div>
   </section>
 
-  <!-- ===== RESULTS ===== -->
   <section class="results">
     <div class="section-header">
       <h2>Proven <span>Results</span> Repeatedly</h2>
@@ -810,7 +790,6 @@
     </div>
   </section>
 
-  <!-- ===== FAQ ===== -->
   <section class="faq">
     <div class="section-header">
       <h2>Quick <span>Answers</span></h2>
@@ -914,14 +893,12 @@
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
   <section class="cta-section">
     <h2>Ready to Revolutionize Your Warehouse?</h2>
     <p>Let's discuss how Unbox Robotics can tailor a solution to meet your unique challenges.</p>
     <a href="/get-in-touch" class="cta-btn">Get In Touch</a>
   </section>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-brand">
@@ -992,29 +969,24 @@
     </div>
   </footer>
 
-  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // Mobile menu toggle
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('active');
     });
 
-    // FAQ accordion
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.parentElement;
         const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
 
-        // Close all
         document.querySelectorAll('.faq-item').forEach(fi => {
           fi.classList.remove('active');
           fi.querySelector('.faq-answer').style.maxHeight = '0';
         });
 
-        // Open clicked if it wasn't active
         if (!isActive) {
           item.classList.add('active');
           answer.style.maxHeight = answer.scrollHeight + 'px';
@@ -1022,7 +994,6 @@
       });
     });
 
-    // Navbar shadow on scroll
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('.navbar');
       if (window.scrollY > 10) {
@@ -1032,7 +1003,6 @@
       }
     });
 
-    // Intersection Observer for scroll animations
     const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

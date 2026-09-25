@@ -30,8 +30,6 @@ docker run --rm -it \
     cp -a /upstream/src/multi_modal_worlds /workspaces/multi_amr/src/
     cp -a /upstream/src/multi_modal_robot_description /workspaces/multi_amr/src/
     cp -a /overlay/src/multi_amr_coordination /workspaces/multi_amr/src/
-    # The upstream CMake file installs models/, but the supplied source archive
-    # omits that empty directory. Add it only to this disposable container copy.
     mkdir -p /workspaces/multi_amr/src/multi_modal_worlds/models
     mkdir -p /workspaces/multi_amr/src/multi_modal_robot_description/config
     cd /workspaces/multi_amr

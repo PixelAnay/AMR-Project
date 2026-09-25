@@ -66,8 +66,6 @@ function createRoverScene() {
   canvas.tabIndex = 0;
   canvas.setAttribute('aria-label', 'Interactive 3D AMR model. Drag to orbit, use arrow keys to rotate, and space to pause.');
 
-  // A neutral generated environment gives painted metal soft, realistic reflections
-  // without loading an external HDR asset.
   const environmentScene = new THREE.Scene();
   environmentScene.background = new THREE.Color(0xe9efec);
   const environmentPanels = [
@@ -155,18 +153,15 @@ function createRoverScene() {
     return finishMesh(mesh, target);
   };
 
-  // Realistic low-profile AMR proportions: impact skirt, structural frame, body shell and lift deck.
   roundedPrism(3.2, .17, 2.18, .25, materials.rubber, [0, .37, 0]);
   roundedPrism(3.06, .38, 1.96, .18, materials.paintDark, [0, .61, 0]);
   roundedPrism(2.88, .43, 1.76, .17, materials.paint, [0, 1.01, 0]);
   roundedPrism(2.52, .13, 1.45, .11, materials.aluminum, [0, 1.31, 0]);
   roundedPrism(2.34, .055, 1.3, .07, materials.rubber, [0, 1.405, 0]);
 
-  // Raised locating rails and flush deck fasteners.
   [-1.01, 1.01].forEach(x => roundedPrism(.075, .1, 1.27, .025, materials.steel, [x, 1.48, 0]));
   [-.78, .78].forEach(x => [-.47, .47].forEach(z => cylinder(.043, .043, .025, materials.steel, [x, 1.478, z], body, 16)));
 
-  // Recessed service panels use deliberate 0.04-unit clearances to avoid coplanar flicker.
   box([.024, .3, .82], materials.paintDark, [1.492, 1.0, -.08]);
   box([.024, .22, .62], materials.paintDark, [-1.492, .99, .12]);
   [-.28, -.14, 0, .14, .28].forEach(z => box([.018, .018, .07], materials.rubber, [1.516, 1.03, z - .08]));
@@ -176,7 +171,6 @@ function createRoverScene() {
     connector.rotation.x = Math.PI / 2;
   });
 
-  // Four drive modules sit slightly clear of the chassis, connected by visible suspension arms.
   const wheelLocations = [
     [-1.74, .43, .67], [1.74, .43, .67],
     [-1.74, .43, -.67], [1.74, .43, -.67]
@@ -190,8 +184,6 @@ function createRoverScene() {
     tire.rotation.z = Math.PI / 2;
     finishMesh(tire, wheel);
 
-    // Rough rubber tire surface: the carcass geometry itself is perturbed with
-    // small random bumps, giving a worn, coarse texture instead of a tread pattern.
     const tireGeometry = tire.geometry;
     const tirePositions = tireGeometry.attributes.position;
     const tireNormals = tireGeometry.attributes.normal;
@@ -199,7 +191,6 @@ function createRoverScene() {
       const nx = tireNormals.getX(vertexIndex);
       const ny = tireNormals.getY(vertexIndex);
       const nz = tireNormals.getZ(vertexIndex);
-      // Only bump the curved tread surface, not the flat sidewall caps.
       if (Math.abs(ny) > .9) continue;
       const roughness = (Math.random() - .5) * .014;
       tirePositions.setXYZ(
@@ -231,7 +222,6 @@ function createRoverScene() {
     suspension.rotation.z = Math.sign(x) * -.14;
   });
 
-  // Front bumper-mounted safety LiDAR: a plausible low scanning plane near floor level.
   roundedPrism(.76, .24, .16, .055, materials.paintDark, [0, .67, 1.055]);
   roundedPrism(.55, .105, .038, .025, materials.lidarWindow, [0, .68, 1.155]);
   const safetyScan = new THREE.Mesh(
@@ -243,7 +233,6 @@ function createRoverScene() {
   safetyScan.position.set(0, .17, 1.02);
   body.add(safetyScan);
 
-  // Stereo depth camera assembly with opaque coated lenses (no transparency sorting artifacts).
   roundedPrism(1.22, .22, .14, .045, materials.paintDark, [0, 1.08, .92]);
   [-.37, .37].forEach(x => {
     const bezel = cylinder(.105, .105, .035, materials.rubber, [x, 1.09, 1.01], body, 24);
@@ -254,7 +243,6 @@ function createRoverScene() {
   const centralLens = cylinder(.048, .048, .043, materials.optical, [0, 1.09, 1.035], body, 24);
   centralLens.rotation.x = Math.PI / 2;
 
-  // Ultrasonic transducers are inset into the four corners and face outward.
   [[-1.24, .91, .82], [1.24, .91, .82]].forEach(([x, y, z]) => {
     const sensor = cylinder(.056, .056, .026, materials.optical, [x, y, z + .08], body, 20);
     sensor.rotation.x = Math.PI / 2;
@@ -264,7 +252,6 @@ function createRoverScene() {
     sensor.rotation.x = Math.PI / 2;
   });
 
-  // Emergency stop and three-segment machine status beacon.
   cylinder(.115, .13, .095, materials.paintDark, [-.82, 1.48, -.42]);
   cylinder(.105, .105, .065, materials.red, [-.82, 1.56, -.42]);
   cylinder(.06, .07, .23, materials.steel, [.79, 1.55, -.41]);
@@ -272,7 +259,6 @@ function createRoverScene() {
   cylinder(.105, .105, .055, materials.amber, [.79, 1.75, -.41]);
   cylinder(.105, .105, .055, materials.red, [.79, 1.81, -.41]);
 
-  // Enclosed 360° LiDAR puck. Real housings remain fixed; only the protected internal rotor moves.
   cylinder(.11, .14, .43, materials.steel, [0, 1.65, 0]);
   cylinder(.4, .44, .12, materials.paintDark, [0, 1.9, 0]);
   cylinder(.345, .345, .23, materials.lidarWindow, [0, 2.075, 0], body, 48);
@@ -283,14 +269,10 @@ function createRoverScene() {
   box([.49, .035, .025], materials.status, [0, 0, .348], lidarRotor);
   box([.025, .035, .49], materials.status, [.348, 0, 0], lidarRotor);
 
-  // Safety corner lights and flush perimeter fasteners.
   [[-1.22, 1.27, .72], [1.22, 1.27, .72], [-1.22, 1.27, -.72], [1.22, 1.27, -.72]].forEach(position => {
     cylinder(.065, .065, .045, materials.amber, position, body, 20);
   });
 
-  // No visible ground plane — only a shadow-catching surface remains, sized to
-  // fill the entire hero stage rather than a small bounded tile. The rover's
-  // actual movement still stays within its existing routePoints loop below.
   const shadowFloor = new THREE.Mesh(
     new THREE.PlaneGeometry(60, 60),
     new THREE.ShadowMaterial({ color: 0x0d2320, opacity: .22 })
@@ -305,7 +287,6 @@ function createRoverScene() {
   ];
   const route = new THREE.CatmullRomCurve3(routePoints, true, 'centripetal');
 
-  // Broad warehouse lighting gives the matte body soft highlights rather than a plastic shine.
   scene.add(new THREE.HemisphereLight(0xffffff, 0x78918b, 1.65));
   const key = new THREE.DirectionalLight(0xfffdf8, 3.4);
   key.position.set(5, 8, 5);
@@ -325,23 +306,14 @@ function createRoverScene() {
   rim.position.set(4, 2, -6);
   scene.add(rim);
 
-  // The stage now spans the whole hero section, so the controls live in a
-  // sibling element rather than an ancestor of the canvas.
   const visual = stage.closest('.rover-visual') ?? document.querySelector('.rover-visual');
   const motionButton = visual?.querySelector('[data-rover-control="motion"]');
   const motionIcon = motionButton?.querySelector('span');
   const motionLabel = motionButton?.querySelector('b');
 
   const target = new THREE.Vector3(0, .68, 0);
-  // The canvas frame is the entire hero section, so there is always spare room
-  // around the model. Default framing is a zoom of 8 measured against the
-  // visual column, and the extra canvas around it absorbs the route loop,
-  // orbiting and zooming without ever clipping the rover.
-  // Zoom is disabled: distance is fixed at 8 and only orbiting is allowed.
   const defaultView = { azimuth: .72, elevation: .36, distance: 8 };
   const view = { ...defaultView };
-  // Converts the column-relative `view.distance` into a world distance for the
-  // full-hero canvas, so distance 8 always reads at the same apparent size.
   const frame = { scale: 1 };
   let paused = reducedMotion;
   let dragging = false;
@@ -401,11 +373,7 @@ function createRoverScene() {
   canvas.addEventListener('pointerup', endPointerInteraction);
   canvas.addEventListener('pointercancel', endPointerInteraction);
 
-  // Zooming is disabled: the wheel always scrolls the page and never changes
-  // the camera distance, so the rover stays framed at the default zoom.
-
   canvas.addEventListener('keydown', event => {
-    // Zoom and reset controls are intentionally disabled; only orbit and pause remain.
     const handledKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '];
     if (!handledKeys.includes(event.key)) return;
     event.preventDefault();
@@ -422,8 +390,6 @@ function createRoverScene() {
   updateCamera();
 
   const resize = () => {
-    // Layout offsets (not bounding rects) are used here so the reveal
-    // animation's transform on the visual column can't skew the framing.
     const width = stage.offsetWidth;
     const height = stage.offsetHeight;
     if (!width || !height) return;
@@ -433,10 +399,6 @@ function createRoverScene() {
     const shiftX = (focus.offsetLeft + focus.offsetWidth / 2) - (stage.offsetLeft + width / 2);
     const shiftY = (focus.offsetTop + focusHeight / 2) - (stage.offsetTop + height / 2);
 
-    // Render a window of a deliberately larger frustum: the visible pixels stay
-    // the size of the hero, but the image is re-centred over the visual column,
-    // so the rover sits where the layout expects it while keeping the whole
-    // hero as usable frame.
     const fullWidth = width + Math.abs(shiftX) * 2;
     const fullHeight = height + Math.abs(shiftY) * 2;
     camera.aspect = fullWidth / fullHeight;
@@ -471,18 +433,12 @@ function createRoverScene() {
     if (!paused) motionProgress = (motionProgress + delta * .043) % 1;
     const point = route.getPointAt(motionProgress);
     const tangent = route.getTangentAt(motionProgress);
-    // Seat the tires on the shadow plane: wheel bottom = rover.y + body bob
-    // (.012) + wheel centre (.43) - tire radius (.37), so rover.y = -.072 puts
-    // the contact patch exactly at y=0 and removes the gap under the wheels.
     rover.position.set(point.x, -.072, point.z);
     rover.rotation.y = Math.atan2(tangent.x, tangent.z);
 
     if (!paused) {
       const previousPoint = route.getPointAt(previousProgress);
       const displacement = new THREE.Vector2(point.x - previousPoint.x, point.z - previousPoint.z);
-      // Project the world-space displacement onto the rover's own forward axis so wheel
-      // spin direction always matches the direction the chassis is actually heading,
-      // regardless of which way the route curves.
       const forward = new THREE.Vector2(Math.sin(rover.rotation.y), Math.cos(rover.rotation.y));
       const signedDistance = displacement.dot(forward);
       const wheelRadius = .37;
@@ -494,7 +450,6 @@ function createRoverScene() {
       body.rotation.z = THREE.MathUtils.lerp(body.rotation.z, 0, .12);
     }
 
-    // The enclosed LiDAR remains operational while the chassis is paused.
     if (!reducedMotion || !paused) lidarRotor.rotation.y += delta * 5.2;
     previousProgress = motionProgress;
     renderer.render(scene, camera);

@@ -147,9 +147,7 @@ body.day .btn{background:#e2e8f0; color:#334e68; border-color:#cbd5e1;}
 #banner .prog i{display:block;height:100%;background:var(--red);width:0%;transition:width .2s linear}
 
 #heatOverlay{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:0.5;display:none;mix-blend-mode:screen;}
-/* minimap lives in the right sidebar header area, not overlaid on viewport */
 #minimap{display:block;width:100%;height:110px;background:rgba(7,11,16,0.9);border-bottom:1px solid var(--ln);flex:none;}
-/* perf overlay hidden by default, toggled by backtick key, placed bottom-left of viewport where it's least intrusive */
 #perfOverlay{position:absolute;bottom:42px;left:17px;z-index:5;background:rgba(0,0,0,0.75);color:#41e0a3;font-family:monospace;padding:4px 7px;font-size:9px;display:none;pointer-events:none;letter-spacing:.5px;}
 
 
@@ -377,7 +375,6 @@ footer{display:grid;grid-template-columns:1fr 344px;border-top:1px solid var(--l
 
 <script>
 'use strict';
-/* ================= AUDIO / SOUND ================= */
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = AudioContext ? new AudioContext() : null;
 let soundOn = false;
@@ -400,7 +397,6 @@ function playBeep(type){
   osc.start(); osc.stop(audioCtx.currentTime+0.5);
 }
 
-/* ================= UTIL ================= */
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const rnd=(a,b)=>a+Math.random()*(b-a);
@@ -408,7 +404,6 @@ const pick=a=>a[Math.floor(Math.random()*a.length)];
 const fmtT=s=>{s=Math.floor(s);return String(Math.floor(s/3600)%24).padStart(2,'0')+':'+String(Math.floor(s/60)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 const fmtMMSS=s=>{s=Math.floor(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
 
-/* ================= BINARY HEAP ================= */
 class MinHeap {
   constructor(){ this.data = []; }
   push(v){ this.data.push(v); this.up(this.data.length-1); }
@@ -418,7 +413,6 @@ class MinHeap {
   get length(){ return this.data.length; }
 }
 
-/* ================= GRID / MAP ================= */
 const COLS=42, ROWS=28;
 const W=(c,r)=>({x:c-COLS/2+.5, z:r-ROWS/2+.5});
 const cellOf=(x,z)=>({c:Math.round(x+COLS/2-.5), r:Math.round(z+ROWS/2-.5)});
@@ -440,7 +434,6 @@ for(let r=3;r<=23;r++)for(let c=4;c<=37;c++){
 }
 const freeCell=(c,r,extra)=>c>=0&&r>=0&&c<COLS&&r<ROWS&&!STAT[CI(c,r)]&&!DYN.has(CI(c,r))&&!(extra&&extra.has(CI(c,r)));
 
-/* ================= A* (HEAP OPTIMIZED) ================= */
 function astar(c0,r0,c1,r1,extra){
   if(!freeCell(c1,r1,extra))return null;
   const N=COLS*ROWS,g=new Float32Array(N).fill(1e9),came=new Int32Array(N).fill(-1),done=new Uint8Array(N);
@@ -471,7 +464,6 @@ function simplify(path){
   out.push(path[path.length-1]); return out;
 }
 
-/* ================= THREE SETUP ================= */
 const vp=document.getElementById('vp');
 const renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
@@ -494,7 +486,6 @@ scene.add(sun);
 const rimB=new THREE.PointLight(0x2f79b8,0.5,70); rimB.position.set(-26,9,-16); scene.add(rimB);
 const rimW=new THREE.PointLight(0xb8662f,0.4,60); rimW.position.set(25,6,18); scene.add(rimW);
 
-/* ---- floor + grid + lane markings ---- */
 const floor=new THREE.Mesh(new THREE.PlaneGeometry(COLS+6,ROWS+6),
   new THREE.MeshStandardMaterial({color:0x0e141b,roughness:.95,metalness:0}));
 floor.rotation.x=-Math.PI/2; floor.receiveShadow=true; scene.add(floor);
@@ -507,7 +498,6 @@ floor.rotation.x=-Math.PI/2; floor.receiveShadow=true; scene.add(floor);
     l.position.y=.01; scene.add(l);};
   mk(1,0x16222c,.5); mk(4,0x20333f,.7);
 }
-// Lane markings
 {
   const dashMat = new THREE.LineDashedMaterial({color:0xeab308, dashSize: 0.8, gapSize: 0.8});
   const laneLines = [];
@@ -526,7 +516,6 @@ function strip(x,z,len,horizontal,y){
 }
 strip(W(17,0).x,0,ROWS-1,false,.012);
 
-/* ---- walls ---- */
 {
   const mat=new THREE.MeshStandardMaterial({color:0x121c26,roughness:.9});
   const mk=(w,d,x,z)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,1.5,d),mat);m.position.set(x,.75,z);m.castShadow=true;scene.add(m);
@@ -535,7 +524,6 @@ strip(W(17,0).x,0,ROWS-1,false,.012);
   mk(.35,ROWS+6,-COLS/2-2,0); mk(.35,ROWS+6,COLS/2+2,0);
 }
 
-/* ---- racks ---- */
 const BOXCOL=[0x8a6a45,0x6d573b,0x2e6f6a,0x54606e,0x96693a,0x7a4a33];
 const uprightG=new THREE.BoxGeometry(.09,3,.09), upMat=new THREE.MeshStandardMaterial({color:0x2f6db5,roughness:.6,metalness:.3});
 const beamMat=new THREE.MeshStandardMaterial({color:0xc96f2a,roughness:.7});
@@ -549,7 +537,6 @@ RACK_ROWS.forEach(([r0])=>SEGS.forEach(([c0,c1])=>{
   [.95,1.9].forEach(y=>{
     [-0.93,0.93].forEach(zz=>{const bm=new THREE.Mesh(beamG,beamMat);bm.position.set(0,y,zz);bm.castShadow=true;grp.add(bm);});
     const pl=new THREE.Mesh(plankG,plankMat);pl.position.y=y+.03;grp.add(pl);
-    // LED strip on edge
     const ledM=new THREE.Mesh(new THREE.PlaneGeometry(len, 0.02), new THREE.MeshBasicMaterial({color:0x0ea5e9, transparent:true, opacity:0.8}));
     ledM.position.set(0, y+0.05, 0.94); ledM.rotation.x = -Math.PI/2; grp.add(ledM); rackLEDs.push(ledM);
   });
@@ -566,7 +553,6 @@ RACK_ROWS.forEach(([r0])=>SEGS.forEach(([c0,c1])=>{
   grp.position.set(cx,0,cz); scene.add(grp);
 }));
 
-/* ---- text sprite helper ---- */
 function textSprite(draw,w,h,sx,sy){
   const cv=document.createElement('canvas');cv.width=w;cv.height=h;
   const tex=new THREE.CanvasTexture(cv);tex.encoding=THREE.sRGBEncoding;
@@ -579,7 +565,6 @@ const CIRC=(()=>{const cv=document.createElement('canvas');cv.width=cv.height=32
   const gr=g.createRadialGradient(16,16,0,16,16,15);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.4,'rgba(255,255,255,.5)');gr.addColorStop(1,'rgba(255,255,255,0)');
   g.fillStyle=gr;g.fillRect(0,0,32,32);return new THREE.CanvasTexture(cv);})();
 
-/* ---- charge pads / stations / gateway / tower ---- */
 PADS.forEach(p=>{
   const w=W(p.c,p.r),g=new THREE.Group();
   const base=new THREE.Mesh(new THREE.BoxGeometry(1,.06,1),new THREE.MeshStandardMaterial({color:0x17242e,roughness:.8}));base.position.y=.03;g.add(base);
@@ -615,7 +600,6 @@ const gatePos=W(GATE.c,GATE.r), gateG=new THREE.Group();
   const gl=new THREE.PointLight(0x4fd8eb,.7,9);gl.position.y=2.3;gateG.add(gl);
   gateG.position.set(gatePos.x,0,gatePos.z);scene.add(gateG);
 }
-// Control Tower
 {
   const tw = new THREE.Group();
   const cbase = new THREE.Mesh(new THREE.CylinderGeometry(0.8,0.9,4,16), new THREE.MeshStandardMaterial({color:0x1a2836}));
@@ -628,20 +612,17 @@ const gatePos=W(GATE.c,GATE.r), gateG=new THREE.Group();
   scene.add(tw);
 }
 
-/* dust */
 const dust=(()=>{const n=240,p=new Float32Array(n*3);
   for(let i=0;i<n;i++){p[i*3]=rnd(-COLS/2,COLS/2);p[i*3+1]=rnd(.3,7);p[i*3+2]=rnd(-ROWS/2,ROWS/2);}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));
   const pts=new THREE.Points(g,new THREE.PointsMaterial({color:0x6a8b98,size:.06,transparent:true,opacity:.3,depthWrite:false}));
   scene.add(pts);return pts;})();
 
-/* ================= ROBOTS ================= */
 const STCOL={Moving:0x41e0a3,Idle:0x7d8ea0,Charging:0xffb454,Blocked:0xff5d6c};
 const PRINAME={1:'CRITICAL',2:'HIGH',3:'NORMAL',4:'LOW'};
 const robots=[], hitMeshes=[];
 function buildBot(id){
   const g=new THREE.Group();
-  // Blob shadow
   const sh = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.2), new THREE.MeshBasicMaterial({color:0x000, transparent:true, opacity:0.6}));
   sh.rotation.x = -Math.PI/2; sh.position.y = 0.02; g.add(sh);
 
@@ -652,7 +633,6 @@ function buildBot(id){
   const lid=new THREE.Mesh(new THREE.CylinderGeometry(.09,.11,.1,14),new THREE.MeshStandardMaterial({color:0x11161c,roughness:.3}));lid.position.y=.54;g.add(lid);
   const spin=new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,.08,6),new THREE.MeshBasicMaterial({color:0x66ffcc}));spin.position.y=.62;g.add(spin);g.userData.spin=spin;
   const led=new THREE.Mesh(new THREE.BoxGeometry(.6,.045,.02),new THREE.MeshBasicMaterial({color:0x41e0a3}));led.position.set(0,.34,.29);g.add(led);g.userData.led=led;
-  // Emergency Light
   const emLight = new THREE.PointLight(0xff0000, 0, 2); emLight.position.set(0, 0.7, 0); g.add(emLight); g.userData.emLight = emLight;
 
   const ring=new THREE.Mesh(new THREE.RingGeometry(.5,.62,36),new THREE.MeshBasicMaterial({color:0x41e0a3,transparent:true,opacity:.75,side:THREE.DoubleSide}));
@@ -663,11 +643,9 @@ function buildBot(id){
   hit.position.y=.75;g.add(hit);
   const label=textSprite(()=>{},256,104,2.3,.94);label.position.y=1.55;g.add(label);g.userData.label=label;
   
-  // path line + flow dot + dest marker
   const pline=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineDashedMaterial({color:0x4fd8eb,dashSize:.35,gapSize:.2,transparent:true,opacity:.8}));
   scene.add(pline);
   
-  // ghost trails
   const trailGeo = new THREE.BufferGeometry();
   trailGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(40*3), 3));
   const trailLine = new THREE.Line(trailGeo, new THREE.LineBasicMaterial({color:0x41e0a3, transparent:true, opacity:0.3}));
@@ -733,7 +711,6 @@ function pointAlong(b,t){
   return b.path[b.path.length-1];
 }
 
-/* ================= UI STATE / POOLS ================= */
 let selected=null,compareBot=null,camMode='ORBIT',speed=1,simT=0,ordersDone=0,isPaused=false;
 const logEl=document.getElementById('log');
 const logPool = []; for(let i=0;i<100;i++){ const d=document.createElement('div');d.className='ln hide';logPool.push(d); }
@@ -784,7 +761,6 @@ function select(b, compare){
 }
 select(robots[0]);
 
-/* ================= ORDERS / TASKS ================= */
 let ordSeq=1040;
 function assignOrder(b,quiet){
   if(!PICKS.length||!STNS.length)return;
@@ -825,7 +801,6 @@ function finishOrder(b){
   b.order=null;b.state='idle';b.orderTimer=rnd(1.2,4);
 }
 
-/* ================= OBSTACLES ================= */
 const obstacles=[];
 function spawnObstacle(manual){
   const cand=[];
@@ -852,7 +827,6 @@ function removeObstacle(o,silent){
   robots.forEach(b=>{if(b.blockedWait)b.replanT=0;});
 }
 
-/* ================= CONFLICTS ================= */
 let forced=null;const pairSeen={};
 const zones=[];for(let i=0;i<5;i++){
   const grp=new THREE.Group();
@@ -973,7 +947,6 @@ function updConflicts(dt){
   return pairs;
 }
 
-/* ================= COMMS ================= */
 const meshLines=[];for(let i=0;i<16;i++){
   const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3()]),
     new THREE.LineBasicMaterial({color:0x4fd8eb,transparent:true,opacity:.2}));
@@ -1013,14 +986,13 @@ function updComms(dt){
   document.getElementById('gwStat').textContent=meshHealth>75?'ONLINE':meshHealth>45?'DEGRADED':'LOSS';
 }
 
-/* ================= SIM UPDATE ================= */
 function driveBot(b,dt){
   if(!b.path.length||b.seg>=b.path.length-1){b.speed=lerp(b.speed,0,Math.min(1,dt*6));return b.path.length&&b.seg>=b.path.length-1;}
   const wp=b.path[b.seg+1];
   const dx=wp.x-b.pos.x,dz=wp.z-b.pos.z,d=Math.hypot(dx,dz);
   const rem=remaining(b);
   let vmax=1.65;
-  if(b.seg+2<b.path.length){ // corner ahead
+  if(b.seg+2<b.path.length){
     const a1=Math.atan2(dz,dx),n=b.path[b.seg+2];
     const a2=Math.atan2(n.z-wp.z,n.x-wp.x);
     let da=Math.abs(a2-a1);if(da>Math.PI)da=2*Math.PI-da;
@@ -1125,7 +1097,6 @@ function deriveStatus(b){
   if(!b.blockedWait&&b.status!=='Blocked')b.blockedWait=false;
 }
 
-/* ================= CAMERA ================= */
 const camTarget=new THREE.Vector3(0,0,1);
 let cTheta=.5,cPhi=.92,cRad=27,tTheta=.5,tPhi=.92,tRad=27;
 const camGoal=new THREE.Vector3(0,0,1);
@@ -1191,7 +1162,6 @@ function updCam(dt){
   camera.lookAt(camTarget);
 }
 
-/* ================= OVERLAYS / UI EVENTS ================= */
 let ovPaths=true,ovLabels=true,ovMesh=true,ovZones=true,ovHeat=false;
 document.querySelectorAll('[data-ov]').forEach(cb=>cb.onchange=()=>{
   const k=cb.dataset.ov,v=cb.checked;
@@ -1239,7 +1209,6 @@ document.getElementById('logFilter').oninput=(e)=>{
   });
 };
 
-/* ================= UI REFRESH ================= */
 const $=id=>document.getElementById(id);
 function refreshRoster(){
   robots.forEach(b=>{
@@ -1342,18 +1311,13 @@ function drawMinimap() {
   const mcv = $('minimap'), ctx = mcv.getContext('2d');
   const W = mcv.width, H = mcv.height;
   ctx.clearRect(0, 0, W, H);
-  // background
   ctx.fillStyle = '#07090d';
   ctx.fillRect(0, 0, W, H);
   const sx = W / COLS, sy = H / ROWS;
-  // racks
   ctx.fillStyle = 'rgba(79,216,235,0.08)';
   for(let r=0; r<ROWS; r++) for(let c=0; c<COLS; c++) { if(STAT[CI(c,r)]) ctx.fillRect(c*sx, r*sy, sx, sy); }
-  // charge pads
   PADS.forEach(p => { ctx.fillStyle='rgba(255,180,84,0.4)'; ctx.fillRect(p.c*sx-sx*.4, p.r*sy-sy*.4, sx*.8, sy*.8); });
-  // obstacles
   obstacles.forEach(o => { ctx.fillStyle='rgba(255,93,108,0.6)'; ctx.fillRect(o.c*sx, o.r*sy, sx, sy); });
-  // robots
   robots.forEach(b => {
     const c = cellOf(b.pos.x, b.pos.z);
     const col = b.fc==='DEADLOCK'?'#ff5d6c':(b.status==='Moving'?'#41e0a3':b.status==='Charging'?'#ffb454':'#7d8ea0');
@@ -1366,7 +1330,6 @@ function drawMinimap() {
       ctx.beginPath(); ctx.arc(rx, ry, 2.5, 0, Math.PI*2); ctx.fill();
     }
   });
-  // label
   ctx.fillStyle='rgba(54,103,122,0.55)'; ctx.font='8px IBM Plex Mono,monospace'; ctx.textAlign='left';
   ctx.fillText('SECTOR W-07  MINIMAP', 4, H-4);
 }
@@ -1385,7 +1348,6 @@ function updateHeatmap() {
   ctx.putImageData(img, 0,0);
 }
 
-/* ================= TOOLTIP ================= */
 const tip=$('tip');let hoverBot=null;
 function updHover(){
   ray.setFromCamera(mouse,camera);
@@ -1400,7 +1362,6 @@ function updHover(){
   }else tip.style.display='none';
 }
 
-/* ================= SAVING ================= */
 function saveState() {
   const state = { simT, ordersDone, bots: robots.map(b=>({x:b.pos.x, z:b.pos.z, batt:b.battery, ord:b.order?b.order.id:null})) };
   localStorage.setItem('amr_save_v2', JSON.stringify(state));
@@ -1419,7 +1380,6 @@ function restoreSave(doRestore) {
 }
 if(localStorage.getItem('amr_save_v2')) $('savePrompt').style.display='block';
 
-/* ================= MAIN LOOP ================= */
 let lastT=performance.now(),fpsN=0,fpsT=0,obstT=rnd(14,22),autoDead=rnd(40,60), heatT=0;
 function resize(){
   const w=vp.clientWidth||window.innerWidth-626,h=vp.clientHeight||window.innerHeight-214;
@@ -1455,7 +1415,6 @@ function frame(now){
     }
   }
 
-  // visuals
   robots.forEach(b=>{
     b.g.position.set(b.pos.x,0,b.pos.z);
     b.g.userData.spin.rotation.y+=raw*9;
@@ -1473,7 +1432,6 @@ function frame(now){
       const p=pointAlong(b,b._ft);b.dot.position.set(p.x,.12,p.z);b.dot.visible=ovPaths;
     }
     
-    // update ghost trails
     if(!isPaused && simT - b.lastTrailT > 0.2) {
       b.lastTrailT = simT;
       b.trailPts.unshift(b.pos.clone());
@@ -1513,7 +1471,6 @@ function frame(now){
 }
 requestAnimationFrame(frame);
 
-/* boot */
 log('SYS','AMRs edge runtime v2.5 · digital twin synchronised');
 setTimeout(()=>log('SYS','mesh network formed · 8 nodes + GW-01 · consensus layer ready'),400);
 setTimeout(()=>log('NAV','warehouse map loaded · SECTOR W-07 · 4 rack rows · 6 charge docks · 3 stations'),800);

@@ -99,10 +99,6 @@ def generate_launch_description():
     worlds_pkg = get_package_share_directory('multi_modal_worlds')
     world_path = os.path.join(worlds_pkg, 'worlds', 'warehouse.sdf')
     models_path = os.path.join(worlds_pkg, 'models')
-    # Gazebo resolves the converted package:// mesh URIs as
-    # model://multi_modal_robot_description/meshes/*.STL.  Its resource path
-    # therefore needs the parent directory of the installed package as well as
-    # the warehouse model directory.
     robot_resource_parent = os.path.dirname(get_package_share_directory(
         'multi_modal_robot_description'))
     existing_resources = os.environ.get('GZ_SIM_RESOURCE_PATH', '')
