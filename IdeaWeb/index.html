@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f6">
+  <title>AMR Project</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="description" content="Edge-AI coordination for autonomous mobile robots in smart warehouses, designed without a central fleet server.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>AMR</span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span class="sr-only">Open navigation</span></button>
+    <nav id="primary-nav" class="primary-nav">
+      <a href="#approach">Approach</a><a href="#technology">Technology</a><a href="#viability">Viability</a><a href="#impact">Impact</a><a href="#research">Research</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="rover-stage" id="rover-stage" role="application" aria-label="Interactive autonomous mobile robot. Drag to orbit or use the arrow keys."></div>
+      <div class="hero-copy reveal">
+        <p class="kicker">DISTRIBUTED ROBOTICS <i></i> WAREHOUSE AUTOMATION</p>
+        <h1>More resilient<br>robot fleets, <em>by design.</em></h1>
+        <p class="lead">An edge-AI coordination layer for autonomous mobile robots. Each unit senses, plans, and communicates locally, so the fleet keeps operating without relying on one central server.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#approach">Explore the approach <span>→</span></a><a class="quiet-link" href="Dashboard/index.html">View live simulation <span>↗</span></a></div>
+      </div>
+      <div class="hero-visual rover-visual reveal" aria-label="Interactive three-dimensional autonomous mobile robot model">
+        <div class="rover-controls" aria-label="3D model controls">
+          <span class="rover-hint">Drag to inspect <i></i> Arrow keys to orbit</span>
+          <div>
+            <button type="button" data-rover-control="motion" aria-pressed="false"><span aria-hidden="true">Ⅱ</span><b>Pause</b></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Key project metrics">
+      <div><strong>43.4<span>%</span></strong><p>projected annual infrastructure saving</p></div><div><strong>₹8–9<span>L</span></strong><p>decentralized annual infrastructure range</p></div><div><strong>60<span>+</span></strong><p>robots demonstrated in decentralized research</p></div><div><strong>GNN</strong><p>multi-link coordination across nearby peers</p></div>
+    </section>
+
+    <section class="statement section" id="approach">
+      <p class="section-label">01 — THE PROBLEM</p>
+      <div class="statement-content reveal"><h2>Warehouse automation should not become fragile as it <em>grows.</em></h2><div><p>Centralized fleet managers create a single point of failure. Server outages can stop the whole fleet, Wi-Fi dead zones interrupt coordination, and central arbitration turns intersections into stop-and-wait queues as robot count rises.</p><a class="inline-link" href="#mechanisms">See the decentralized model <span>→</span></a></div></div>
+    </section>
+
+    <section class="mechanisms section" id="mechanisms">
+      <div class="section-intro"><div><p class="section-label">02 — DISTRIBUTED COORDINATION</p><h2>Local intelligence.<br><em>Collective motion.</em></h2></div><p>Each robot is an intelligent node in a self-healing peer-to-peer mesh. New robots add local redundancy and communication paths rather than adding central-server load.</p></div>
+      <div class="mechanism-grid">
+        <article class="mechanism-card reveal"><span class="number">01</span><div class="line-icon broadcast" aria-hidden="true"></div><h3>GNN multi-link coordination</h3><p>A graph neural network represents AMRs as connected nodes, captures spatial and motion relationships, and identifies likely interactions before they turn into conflicts.</p></article>
+        <article class="mechanism-card reveal"><span class="number">02</span><div class="line-icon intersection" aria-hidden="true"></div><h3>Conflict-aware navigation</h3><p>Conflict-Based Search detects path conflicts and creates constraints for collision-free rerouting. DM³ extends this with decentralized multi-robot semantic navigation.</p></article>
+        <article class="mechanism-card reveal"><span class="number">03</span><div class="line-icon mesh-icon" aria-hidden="true"></div><h3>Shared local awareness</h3><p>Swarm-SLAM builds collaborative route awareness across the fleet, while peer-to-peer intent sharing maintains distributed task state through link or node loss.</p></article>
+      </div>
+    </section>
+
+    <section class="flow-section section"><div class="section-intro"><div><p class="section-label">03 — THE EDGE-AI LOOP</p><h2>Sense, understand,<br>coordinate, <em>act.</em></h2></div><p>The control cycle is continuous and local. Robots combine their own sensor data with messages from nearby peers to make a safe action at the edge.</p></div><div class="flow-grid"><article class="reveal"><span>01</span><h3>Sense &amp; estimate</h3><p>2D LiDAR maps the environment; IMU and wheel encoders estimate orientation, velocity, position, and distance.</p></article><article class="reveal"><span>02</span><h3>Plan &amp; negotiate</h3><p>Sensor fusion, GNN coordination, CBS, and Swarm-SLAM evaluate conflicts, priorities, and feasible local routes.</p></article><article class="reveal"><span>03</span><h3>Execute locally</h3><p>On-device AI turns the local state into motion actions, with distributed allocation and fleet-level intent sharing.</p></article></div></section>
+
+    <section class="technology section" id="technology"><div class="section-intro"><div><p class="section-label">04 — TECHNOLOGY FOUNDATION</p><h2>Built on technology<br>that already <em>works.</em></h2></div><p>Commercially available hardware and an established robotics stack make the architecture practical to prototype, deploy, and maintain.</p></div><div class="technology-list reveal"><div><span>Sensing &amp; input</span><p>2D LiDAR · IMU · wheel encoders · mission priority · drop location · payload information</p></div><div><span>Edge platform</span><p>NVIDIA Jetson Nano or Raspberry Pi 4 · ROS 2 Humble · Python control layer</p></div><div><span>Network &amp; coordination</span><p>Wi-Fi mesh · graph neural network coordination · distributed task allocation · MBIB</p></div><div><span>Navigation &amp; safety</span><p>Conflict-Based Search · DM³ · Swarm-SLAM · OpenClaw on-device AI decision logic</p></div></div></section>
+
+    <section class="applications section" id="applications"><div class="section-intro"><div><p class="section-label">05 — DEPLOYMENT CONTEXTS</p><h2>Designed for the<br>reality of <em>logistics.</em></h2></div><p>A B2B coordination model for regional operators and facilities that need more automation without a new server room or locked-in fleet platform.</p></div><div class="application-grid"><article class="application-main reveal"><p>Compatible with autonomous mobile robot fleets across fulfillment, distribution, and regional logistics operations.</p><a class="button button-dark" href="#viability">See the operating case <span>→</span></a></article><div class="application-list reveal"><span>01</span><p>E-commerce fulfillment centres</p><span>02</span><p>Sort and mid-mile hubs</p><span>03</span><p>Distribution centres</p><span>04</span><p>Manufacturing and retail warehouses</p><span>05</span><p>Tier-2/3 operators and regional hubs</p></div></div></section>
+
+    <section class="viability section" id="viability"><div class="section-intro"><div><p class="section-label">06 — FEASIBILITY &amp; VIABILITY</p><h2>A stronger operating case,<br>from cost to <em>continuity.</em></h2></div><p>Edge compute, COTS hardware, and local decisions lower the infrastructure burden while building in resilience for real warehouse conditions.</p></div><div class="viability-grid"><article class="cost-card reveal"><small>ANNUAL INFRASTRUCTURE COST</small><div class="cost-range"><div><b>₹14–16L</b><span>centralized AMR fleet</span></div><i></i><div class="highlight"><b>₹8–9L</b><span>decentralized AMR fleet</span></div></div><p>Projected annual saving: <strong>43.4%</strong>, with no central server rack or warehouse-wide industrial Wi-Fi grid required.</p></article><article class="viability-card reveal"><span>Environmental</span><h3>Lower energy footprint</h3><p>Localized edge compute reduces continuous cloud transmission, data-centre demand, and energy use across the operation.</p></article><article class="viability-card reveal"><span>Maintenance &amp; safety</span><h3>Practical to run</h3><p>Durable COTS hardware, fast-charge lithium-ion batteries, and LiDAR-led safety coverage support predictable upkeep and safer movement.</p></article><article class="viability-card reveal"><span>Operational trust</span><h3>Built around people</h3><p>Predictable movement, clear signals, and robots operating as helpers support safer collaboration, privacy, and adoption on the floor.</p></article></div><div class="market-grid reveal"><div class="market-copy"><p class="section-label">MARKET OPPORTUNITY</p><h3>Focused on a growing AMR adoption gap.</h3><p>Large deployments demonstrate demand. The opportunity is to bring distributed coordination to operators that cannot justify traditional centralized infrastructure.</p></div><div class="market-metrics"><div><span>TAM</span><strong>$4.8B</strong><p>warehouse automation opportunity</p></div><div><span>SAM</span><strong>US$150–315M</strong><p>India AMR segment, projected 15–19% CAGR</p></div><div><span>SOM</span><strong>1–5%</strong><p>achievable share of SAM, ~US$1.5–15M range</p></div></div></div></section>
+
+    <section class="results section" id="impact"><div class="results-heading"><p class="section-label">07 — IMPACTS &amp; BENEFITS</p><h2>Less delay. Less waste.<br>More <em>continuity.</em></h2></div><div class="impact-matrix"><article class="impact-benefit reveal"><span>01</span><h3>No single point of failure</h3><p>No central server or base station needs to stay online for every robot to continue making local decisions.</p></article><article class="impact-benefit reveal"><span>02</span><h3>High fault tolerance</h3><p>Local perception and onboard processing preserve mission progress through communication drops or device loss.</p></article><article class="impact-benefit reveal"><span>03</span><h3>Linear scalability</h3><p>Computation and bandwidth scale locally, making expansion more practical as the robot fleet grows.</p></article><article class="impact-benefit reveal"><span>04</span><h3>Energy-aware operations</h3><p>Removing continuous central and cloud dependence can lower electricity consumption and operational waste.</p></article></div><div class="comparison-row reveal"><div><span>Delay time</span><b>100% <i>→</i> 70%</b><p>local rerouting vs. high stop-and-wait latency</p></div><div><span>Infrastructure</span><b>₹15L <i>→</i> ₹8.5L</b><p>annual cost comparison benchmark</p></div><div><span>Dead zones</span><b>High risk <i>→</i> self-healing</b><p>mesh communication maintains local continuity</p></div></div></section>
+
+    <section class="research section" id="research"><div class="section-intro"><div><p class="section-label">08 — RESEARCH FOUNDATION</p><h2>Grounded in modern<br>multi-robot <em>research.</em></h2></div><p>The coordination approach builds on established work in graph neural networks, decentralized path planning, reinforcement learning, and energy-aware robot teams.</p></div><div class="research-grid"><ol class="reference-list reveal"><li>Li, Q., Gama, F., Ribeiro, A., &amp; Prorok, A. <em>Graph Neural Networks for Decentralized Multi-Robot Path Planning.</em> arXiv:1912.06095, 2020.</li><li>Zhou, L., Sharma, V. D., Li, Q., Prorok, A., Ribeiro, A., Tokekar, P., &amp; Kumar, V. <em>Graph Neural Networks for Decentralized Multi-Robot Submodular Action Selection.</em> arXiv:2105.08601, 2021.</li><li>Wang, B., Liu, Z., Li, Q., &amp; Prorok, A. <em>Mobile Robot Path Planning in Dynamic Environments Through Globally Guided Reinforcement Learning.</em> arXiv:2005.05420, 2020.</li><li>Cai, X., Schlotfeldt, B., Khosoussi, K., Atanasov, N., Pappas, G. J., &amp; How, J. P. <em>Energy-Aware, Collision-Free Information Gathering for Heterogeneous Robot Teams.</em> IEEE Transactions on Robotics, 2023.</li></ol><aside class="research-aside reveal"><p class="section-label">WHAT THE EVIDENCE SUPPORTS</p><h3>Decentralized policies can scale beyond the point where centralized planners become impractical.</h3><p>Graph-based local communication creates a path toward coordinated behaviour without handing every decision to one server.</p><a class="inline-link" href="Dashboard/index.html">Open the simulation <span>↗</span></a></aside></div></section>
+
+    <section class="faq section" id="faq"><div class="section-intro"><div><p class="section-label">09 — FAQ</p><h2>Useful answers,<br>without the <em>hype.</em></h2></div></div><div class="faq-list"><details class="faq-item reveal" open><summary>What replaces the central fleet server?</summary><p>There is no single replacement. Each robot combines local sensing, on-device decision logic, GNN-based coordination, and messages from nearby peers to take safe local actions.</p></details><details class="faq-item reveal"><summary>How are conflicts avoided between robots?</summary><p>Conflict-Based Search detects collisions between paths, while graph-based coordination models nearby interactions and decentralized navigation produces collision-free local alternatives.</p></details><details class="faq-item reveal"><summary>What happens when communication drops?</summary><p>Robots retain their local state and continue their current task safely. When mesh links return, the peer-to-peer fleet state can re-synchronize without needing a central restart.</p></details><details class="faq-item reveal"><summary>What hardware does the approach use?</summary><p>The proposed edge stack uses a Jetson Nano or Raspberry Pi 4, 2D LiDAR, IMU, wheel encoders, Wi-Fi mesh networking, and ROS 2 Humble.</p></details></div></section>
+
+    <section class="contact" id="contact"><div><p class="section-label">AUTONOMOUS SYSTEMS</p><h2>A practical idea,<br>ready to be <em>tested.</em></h2></div><div><p>The concept is backed by a working simulation prototype and a research-led technical approach. The next step is physical-fleet validation in a warehouse environment.</p></div></section>
+  </main>
+
+  <footer><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>AMR</span></a><div><a href="#approach">Approach</a><a href="#technology">Technology</a><a href="Dashboard/index.html">Simulation ↗</a></div><p>DECENTRALIZED AUTONOMOUS MOBILE ROBOT COORDINATION</p></footer>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
